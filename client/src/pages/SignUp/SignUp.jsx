@@ -12,18 +12,19 @@ function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:8000/api/signup", {
+      await axios.post("http://localhost:8000/api/signup", {
         name: userName,
         email: email,
         password: password,
       });
-      console.log(res.data);
-      Navigate("/signin");
+      setTimeout(() => {
+        Navigate("/signin");
+      }, 1000);
       setUserName("");
       setEmail("");
       setPassword("");
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
   };
   return (

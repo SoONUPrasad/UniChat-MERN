@@ -10,7 +10,7 @@ function SignIn() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(email, password);
+    // console.log(email, password);
     try {
       const res = await axios.post(
         "http://localhost:8000/api/login",
@@ -22,7 +22,13 @@ function SignIn() {
           withCredentials: true,
         }
       );
-      console.log(res.data);
+      // console.log(res.data);
+      const refreshToken = res.data.tokens.RefreshToken;
+      // console.log(refreshToken);
+      localStorage.setItem("token", refreshToken);
+      setInterval(() => {
+        Navigate("/");
+      },1000)
       Navigate("/");
       setEmail("");
       setPassword("");
