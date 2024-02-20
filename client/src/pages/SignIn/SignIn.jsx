@@ -1,10 +1,12 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 
 function SignIn() {
   const Navigate = useNavigate();
 
+  const notify = () => toast.success("i am signed in")
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -22,13 +24,14 @@ function SignIn() {
           withCredentials: true,
         }
       );
+      notify()
       // console.log(res.data);
       const refreshToken = res.data.tokens.RefreshToken;
       // console.log(refreshToken);
       localStorage.setItem("token", refreshToken);
       setInterval(() => {
         Navigate("/");
-      },1000)
+      }, 1000);
       Navigate("/");
       setEmail("");
       setPassword("");

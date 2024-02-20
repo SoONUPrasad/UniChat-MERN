@@ -1,4 +1,4 @@
-function Navbar() {
+function Navbar({handleLogout}) {
   return (
     <>
       <nav className="bg-gray-800">
@@ -90,6 +90,7 @@ function Navbar() {
                   >
                     Calendar
                   </a>
+                  <button className="px-4 py-2 rounded-lg bg-slate-800 text-white" onClick={handleLogout}>Logout</button>
                 </div>
               </div>
             </div>
