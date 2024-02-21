@@ -1,6 +1,6 @@
 import { verifyRefreshToken, verifyToken } from '../utils/JwtAuth.js';
 
-const checkAuth = async (req, res, next) => {
+const checkAuth = (req, res, next) => {
     try {
         const authHeader = req.headers.authorization;
         if (!authHeader) return res.status(401).json({ error: "No token provided" });
@@ -15,11 +15,12 @@ const checkAuth = async (req, res, next) => {
     }
 }
 
-const authUser = async (req, res, next) => {
+const authUser = (req, res, next) => {
     try {
-        const token = req.cookies?.refreshToken;
-        if (!token) return res.status(401).json({ error: "No token provided" });
-        const user = verifyRefreshToken(token);
+        const refreshToken = req.cookies?.refreshToken;
+        const accessToken = req.cookies?.accessToken;
+        if (!refreshToken || !accessToken) return res.status(401).json({ error: "No token provided" });
+        const user = verifyRefreshToken(refreshToken) || verifyToken(accessToken);
         if (!user) return res.status(401).json({ error: "Invalid token" });
         req.user = user;
         next();

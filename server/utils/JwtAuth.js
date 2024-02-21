@@ -14,7 +14,7 @@ const createToken = (user) => {
             email: user.email
         }
         const token = JWT.sign(payload, SECRET_KEY, {
-            expiresIn: "1m"
+            expiresIn: "1h"
         })
         return token;
     } catch (error) {
@@ -30,7 +30,7 @@ const createRefreshToken = (user) => {
             email: user.email
         }
         const token = JWT.sign(payload, REFRESH_TOKEN, {
-            expiresIn: "10m"
+            expiresIn: "1d"
         })
         return token;
     } catch (error) {
