@@ -18,7 +18,6 @@ const checkAuth = async (req, res, next) => {
 const authUser = async (req, res, next) => {
     try {
         const token = req.cookies?.refreshToken;
-        // console.log(token);
         if (!token) return res.status(401).json({ error: "No token provided" });
         const user = verifyRefreshToken(token);
         if (!user) return res.status(401).json({ error: "Invalid token" });

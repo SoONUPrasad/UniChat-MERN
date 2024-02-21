@@ -22,8 +22,9 @@ const loginUser = async (req, res) => {
         const { email, password } = req.body;
         if (!email || !password) throw new Error("all fields required");
         const tokens = await User.UserMatch(email, password);
+        // console.log(tokens);
         if (!tokens) throw new Error("Invalid password");
-        res.status(200).cookie("accessToken", tokens.AccessToken).cookie("refreshToken", tokens.RefreshToken).json({ "message": "Login successful", tokens })
+        res.status(200).cookie("accessToken", tokens.accessToken).cookie("refreshToken", tokens.refreshToken).json({ "message": "Login successful", tokens })
     } catch (error) {
         res.status(400).json({ error: error.message });
     }

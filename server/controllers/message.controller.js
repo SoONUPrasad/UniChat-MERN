@@ -1,18 +1,35 @@
-import Message from "../models/messege.models";
+import Conversation from "../models/conversation.models.js";
+import Message from "../models/message.models.js"
 
 const sendMessage = async (req, res) => {
     try {
-        const { id } = req.params;
+        const { id: receiverId } = req.params;
         const { message } = req.body;
-        if (!id ||!message) throw new Error("all fields required");
-        const conversation = await Message.findOne({ _id: id });
-        if (!conversation) return res.status(404).json({ error: "Conversation not found" });
+        const senderId = req.user.id
+        // console.log(senderId);
+        if (!receiverId || !message) throw new Error("all fields required");
+
+        let conversation = await Conversation.findOne({ participants: { $all: [senderId, receiverId] }, });
+        if (!conversation) {
+            conversation = await Conversation.create({
+                participants: [senderId, receiverId],
+            })
+        }
         const newMessage = await Message.create({
             message,
-            conversation
+            senderId,
+            receiverId
         });
+        if(newMessage){
+            conversation.messages.push(newMessage._id);
+            conversation.save();
+        }
         res.status(201).json(newMessage);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
+}
+
+export {
+    sendMessage
 }
