@@ -30,7 +30,18 @@ const loginUser = async (req, res) => {
     }
 }
 
+const getAllUsers = async (req, res) => {
+    try {
+        const logInUsers = req.user.id; 
+        const users = await User.find({_id: {$ne: logInUsers}}).select(["-password", "-salt"]);
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+}
+
 export {
     createUser,
-    loginUser
+    loginUser,
+    getAllUsers
 }

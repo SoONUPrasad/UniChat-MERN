@@ -22,7 +22,7 @@ app.use(cors({
 
 // routes
 app.use('/api', userRoutes)
-app.use('/api', messageRoutes)
+app.use('/api/message', messageRoutes)
 
 
 export default app;

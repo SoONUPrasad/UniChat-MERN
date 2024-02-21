@@ -20,7 +20,7 @@ const sendMessage = async (req, res) => {
             senderId,
             receiverId
         });
-        if(newMessage){
+        if (newMessage) {
             conversation.messages.push(newMessage._id);
             conversation.save();
         }
@@ -30,6 +30,23 @@ const sendMessage = async (req, res) => {
     }
 }
 
+const getMessage = async (req, res) => {
+    try {
+        const { id: userToChatId } = req.params;
+        const senderId = req.user.id;
+        if (!userToChatId) throw new Error("all fields required");
+        const conversation = await Conversation.findOne({
+            participants: { $all: [senderId, userToChatId] },
+        }).populate("messages")
+        if (!conversation) res.status(200).json([]);
+
+        res.status(200).json(conversation.messages);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+}
+
 export {
-    sendMessage
+    sendMessage,
+    getMessage
 }
