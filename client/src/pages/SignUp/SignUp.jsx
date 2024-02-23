@@ -1,32 +1,15 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useAuthContext } from "../../context/AuthContext";
 
-function SignUp() {
-  const [userName, setUserName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const Navigate = useNavigate();
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await axios.post("http://localhost:8000/api/signup", {
-        name: userName,
-        email: email,
-        password: password,
-      });
-      setTimeout(() => {
-        Navigate("/signin");
-      }, 1000);
-      setUserName("");
-      setEmail("");
-      setPassword("");
-    } catch (error) {
-      console.log(error);
-    }
-  };
+const SignUp = () => {
+  const {
+    name,
+    setName,
+    email,
+    setEmail,
+    password,
+    setPassword,
+    handleSignUp,
+  } = useAuthContext();
   return (
     <>
       {/* component */}
@@ -50,8 +33,8 @@ function SignUp() {
                       type="text"
                       className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
                       placeholder="Email address"
-                      value={userName}
-                      onChange={(e) => setUserName(e.target.value)}
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
                     />
                     <label
                       htmlFor="email"
@@ -99,7 +82,7 @@ function SignUp() {
                   <div className="relative">
                     <button
                       className="bg-black text-white rounded-md px-2 py-1"
-                      onClick={handleSubmit}
+                      onClick={handleSignUp}
                     >
                       Submit
                     </button>
@@ -112,6 +95,6 @@ function SignUp() {
       </div>
     </>
   );
-}
+};
 
 export default SignUp;

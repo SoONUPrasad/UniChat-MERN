@@ -9,6 +9,6 @@ routes.post('/login', loginUser);
 routes.get('/verify',authUser, (req, res) => {
     res.status(200).json(req.user);
 });
-routes.get('/', authUser, getAllUsers);
+routes.get('/onlineUsers', authUser, getAllUsers);
 
 export default routes;
