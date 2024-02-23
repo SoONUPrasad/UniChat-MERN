@@ -1,22 +1,23 @@
-import { createContext, useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { createContext,useContext, useState } from "react";
+// import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import axios from "axios";
 
 export const AuthContext = createContext();
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAuthContext = () => {
     return useContext(AuthContext);
 }
 
 // eslint-disable-next-line react/prop-types
-const AuthContextProvider = ({ children }) => {
-    const Navigate = useNavigate();
+export const AuthContextProvider = ({ children }) => {
+    // const Navigate = useNavigate();
 
     // const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem('token') || null);
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
     const handleSignUp = async (e) => {
         e.preventDefault();
@@ -28,7 +29,7 @@ const AuthContextProvider = ({ children }) => {
             });
             toast.success("Account Created Successfully");
             setTimeout(() => {
-                Navigate("/");
+                window.location.reload();
             }, 1000);
             setName("");
             setEmail("");
@@ -56,7 +57,8 @@ const AuthContextProvider = ({ children }) => {
             localStorage.setItem('token', refreshToken);
             toast.success("Account Logged In Successfully");
             setTimeout(() => {
-                Navigate("/");
+                window.location.reload();
+                console.log("Account Logged in Successfully");
             }, 1000);
             setName("");
             setEmail("");
@@ -106,4 +108,4 @@ const AuthContextProvider = ({ children }) => {
     )
 }
 
-export default AuthContextProvider;
+// export default AuthContextProvider;

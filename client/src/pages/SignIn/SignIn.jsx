@@ -1,43 +1,8 @@
-import axios from "axios";
-import { useState } from "react";
-import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "../../context/AuthContext";
 
 function SignIn() {
-  const Navigate = useNavigate();
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    // console.log(email, password);
-    try {
-      const res = await axios.post(
-        "http://localhost:8000/api/login",
-        {
-          email: email,
-          password: password,
-        },
-        {
-          withCredentials: true,
-        }
-      );
-      // console.log(res.data);
-      const refreshToken = res.data.tokens.refreshToken;
-      // console.log(refreshToken);
-      localStorage.setItem("token", refreshToken);
-      setInterval(() => {
-        toast.success("Login successfully");
-        Navigate("/");
-      }, 1000);
-      setEmail("");
-      setPassword("");
-    } catch (error) {
-      toast.error("Error: " + error);
-      console.log(error);
-    }
-  };
+  const { email, setEmail, password, setPassword, handleSignIn } =
+    useAuthContext();
   return (
     <>
       {/* component */}
@@ -92,7 +57,7 @@ function SignIn() {
                   <div className="relative">
                     <button
                       className="bg-black text-white rounded-md px-2 py-1"
-                      onClick={handleSubmit}
+                      onClick={handleSignIn}
                     >
                       Log In
                     </button>
