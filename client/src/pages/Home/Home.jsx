@@ -1,54 +1,8 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useUserContext } from "../../context/UserContext";
 import Navbar from "../../components/Navbar";
-import axios from "axios";
 
 function Home() {
-  const Navigate = useNavigate();
-
-  const [userName, setUserName] = useState("");
-  const [onlineUsers, setOnlineUsers] = useState([]);
-
-  const getData = async () => {
-    try {
-      const res = await axios.get("http://localhost:8000/api/verify", {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      });
-      setUserName(res.data.name);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getOnlineUsers = async () => {
-    try {
-      const res = await axios.get("http://localhost:8000/api/onlineUsers", {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      });
-      const data = res.data;
-      // console.log(data);
-      setOnlineUsers(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    // console.log(token);
-    if (!token) {
-      Navigate("/signin");
-    }
-    getData();
-    getOnlineUsers();
-  }, []);
+  const { userName, onlineUsers } = useUserContext();
   return (
     <>
       <div className="mainContainer border-2 flex flex-col justify-between gap-2 overflow-hidden">
