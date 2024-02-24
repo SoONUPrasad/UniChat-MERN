@@ -1,4 +1,7 @@
+import { useAuthContext } from "../context/AuthContext";
+
 const Navbar = () => {
+  const { handleLogout } = useAuthContext();
   return (
     <div className="flex justify-between items-center py-4 px-10">
       <div className="flex gap-4 justify-between items-center">
@@ -32,7 +35,10 @@ const Navbar = () => {
               className="w-11 rounded-3xl"
             />
           </div>
-          <button className="text-sm font-bold bg-slate-800 text-white px-3 py-1 rounded">
+          <button
+            className="text-sm font-bold bg-slate-800 text-white px-3 py-1 rounded"
+            onClick={handleLogout}
+          >
             Logout
           </button>
         </div>

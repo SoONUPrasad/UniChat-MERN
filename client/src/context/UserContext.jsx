@@ -9,7 +9,7 @@ export const useUserContext = () => {
 };
 
 // eslint-disable-next-line react/prop-types
-export const UserContextProvider = ({ children }) => {
+const UserContextProvider = ({ children }) => {
   const [userName, setUserName] = useState("");
   const [onlineUsers, setOnlineUsers] = useState([]);
 
@@ -65,3 +65,5 @@ export const UserContextProvider = ({ children }) => {
     </UserContext.Provider>
   );
 };
+
+export default UserContextProvider;

@@ -10,7 +10,7 @@ export const useAuthContext = () => {
 };
 
 // eslint-disable-next-line react/prop-types
-export const AuthContextProvider = ({ children }) => {
+const AuthContextProvider = ({ children }) => {
   // const Navigate = useNavigate();
 
   const [isAuthenticated, setIsAuthenticated] = useState(
@@ -69,6 +69,13 @@ export const AuthContextProvider = ({ children }) => {
     }
   };
 
+  const handleLogout = () => {
+    setIsAuthenticated(null);
+    localStorage.removeItem("auth-user");
+    localStorage.removeItem("token");
+    toast.success("Account Logged Out Successfully");
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -82,6 +89,7 @@ export const AuthContextProvider = ({ children }) => {
         setPassword,
         handleSignUp,
         handleSignIn,
+        handleLogout,
       }}
     >
       {children}
@@ -89,4 +97,4 @@ export const AuthContextProvider = ({ children }) => {
   );
 };
 
-// export default AuthContextProvider;
+export default AuthContextProvider;

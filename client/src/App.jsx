@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import SignIn from "./pages/SignIn/SignIn";
 import SignUp from "./pages/SignUp/SignUp";
 import Home from "./pages/Home/Home";
@@ -10,15 +10,15 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: isAuthenticated ? <Home /> : <SignIn />,
+      element: isAuthenticated ? <Home /> : <Navigate to={'/signin'}/>,
     },
     {
       path: "/signin",
-      element: isAuthenticated ? <Home /> : <SignIn />,
+      element: isAuthenticated ? <Navigate to={'/'}/> : <SignIn />,
     },
     {
       path: "/signup",
-      element: isAuthenticated ? <Home /> : <SignUp />,
+      element: isAuthenticated ? <Navigate to={'/'}/> : <SignUp />,
     },
   ]);
   return (
