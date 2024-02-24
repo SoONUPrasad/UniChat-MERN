@@ -28,7 +28,7 @@ function Home() {
                 <input
                   type="text"
                   placeholder="Enter your search"
-                  className="px-4 py-1 outline-none bg-gray-100"
+                  className="px-4 py-1 text-xs font-semibold outline-none bg-gray-100"
                 />
               </div>
             </div>
