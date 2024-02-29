@@ -12,6 +12,24 @@ export const useUserContext = () => {
 const UserContextProvider = ({ children }) => {
   const [userName, setUserName] = useState("");
   const [onlineUsers, setOnlineUsers] = useState([]);
+  const [time, setTime] = useState()
+
+  useEffect(() => {
+
+    setInterval(() => {
+
+      const dateObject = new Date()
+
+      const hour = dateObject.getHours()
+      const minute = dateObject.getMinutes()
+      const second = dateObject.getSeconds()
+
+      const currentTime = hour + ' : ' + minute + ' : ' + second
+      
+      setTime(currentTime)
+    }, 1000)
+
+  }, [])
 
   const getData = async () => {
     try {
@@ -53,6 +71,7 @@ const UserContextProvider = ({ children }) => {
   return (
     <UserContext.Provider
       value={{
+        time,
         userName,
         setUserName,
         onlineUsers,
