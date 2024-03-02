@@ -1,18 +1,18 @@
 import { useUserContext } from "../../context/UserContext";
 import Navbar from "../../components/Navbar";
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 
 function Home() {
   const { userName, onlineUsers, time } = useUserContext();
-  const [date, setDate] = useState();
+  // const [date, setDate] = useState();
   
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setDate(new Date());
-    }, 1000)
+  // useEffect(() => {
+  //   const intervalId = setInterval(() => {
+  //     setDate(new Date());
+  //   }, 1000)
 
-    return () => clearInterval(intervalId);
-  }, [])
+  //   return () => clearInterval(intervalId);
+  // }, [])
   return (
     <>
       <div className="mainContainer border-2 flex flex-col justify-between gap-2 overflow-hidden">
@@ -79,7 +79,7 @@ function Home() {
             </div>
             <div className="date_time">
               <ul>
-                <li>{date}</li>
+                {/* <li>{date}</li> */}
                 <li>24-02-24</li>
                 <li>03:53pm</li>
                 <li>{time}</li>
